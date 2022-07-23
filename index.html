@@ -9,24 +9,13 @@
         <title>Pico Web Server</title>
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
         <script type="text/javascript">
-            var intervalId = window.setInterval(doAjax, 1000);
+            var intervalId = window.setInterval(doAjax, 250);
                 
             function doAjax() {
-            // $.ajax({
-            //         url: "/distance",
-            //         type: "GET",
-            //         data: {"distance": distance},
-            //         success: function (result) {
-            //             $("#distance").html("<strong> Distance: " + data + "</strong>");  
-            //         },
-            //         error: function (data) {
-            //             console.log('Error:', data);
-            //         }
-            //     });
-
             $.get("/distance", function(data, status){
                 var obj = JSON.parse(data);
-                $("#distance").html("<strong> Distance: " + obj.distance + "</strong>");
+                $("#distance").html("<strong> Distance: " + obj.distance + "mm</strong>");
+                $("#progress").html('<div id="progress" class="progress-bar w-' + obj.percent + ' role="progressbar" aria-label="Basic example" aria-valuenow="' + obj.percent +'" aria-valuemin="0" aria-valuemax="100" style="width: ' + obj.percent + '%%"></div>');
             });
             }
         </script>
@@ -41,7 +30,9 @@
             <div id="distance">
                 %s
             </div>
-          
+            <div id="progress" class="progress">
+                <div class="progress-bar w-%s" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
         </div>
         
     </body>

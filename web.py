@@ -32,7 +32,7 @@ distance = sensor.distance
 
 async def serve_client(reader, writer):
     global sensor, html, distance
-    distance = {'distance': sensor.distance}
+    sensor_reading = sensor.distance
     print("Client Connected")
     request_line = await reader.readline()
     print("Request:", request_line)
@@ -43,11 +43,13 @@ async def serve_client(reader, writer):
     request = str(request_line)
     print(request)
     url = request.find('/distance')
+    percent = str(100 - (2600 // sensor_reading ))
+    print(percent)
     if url == 6:
-        distance = {'distance': sensor.distance}
+        distance = {'distance': sensor_reading //10, 'percent':percent}
         response = json.dumps(distance)
     else:
-        response = html % str(sensor.distance)
+        response = html % (str(sensor_reading), percent)
     writer.write('HTTP/1.0 200 OK\r\nContent-type: text/html\r\n\r\n')
     writer.write(response)
     
