@@ -106,13 +106,14 @@ class VL53L1X:
         self.reset()
 
         machine.lightsleep(1)
-        if self.model_id != 0xEACC:
+        
+        if self.model_id is not 0xEACC:
             raise RuntimeError('Failed to find expected ID register values. Check wiring!')
         
         # write default configuration
         self.i2c.writeto_mem(self.address, 0x2D, VL51L1X_DEFAULT_CONFIGURATION, addrsize=16)
-
         self.__writeReg16Bit(0x001E, self.__readReg16Bit(0x0022) * 4)
+
         machine.lightsleep(200)
 
     def __writeReg(self, reg, value):
@@ -140,8 +141,8 @@ class VL53L1X:
     def read(self):
         "get range in mm"
         data = self.i2c.readfrom_mem(self.address, 0x0089, 17, addrsize=16) 
-
         crosstalk_corrected_range_mm = (data[13]<<8) + data[14]
+
         return crosstalk_corrected_range_mm
 
     @property
