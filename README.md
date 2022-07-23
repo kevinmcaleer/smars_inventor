@@ -1,5 +1,11 @@
 # SMARS Inventor
-The SMARS Robot powered by the Pimoroni Inventor 2040W
+The SMARS Robot powered by the Pimoroni Inventor 2040W.
+
+## Video
+The YouTube video that goes along with this build can be accessed here:
+
+<https://youtu.be/MP-kS9g5ui8>
+
 
 # 3D printable STL files
 Download the STL files here:
