@@ -11,11 +11,11 @@ print(i2c.scan())
 board = Inventor2040W()
 
 # vl53l1x = VL53L0X(i2c)
-vl53lx1 = VL53L1X(i2c)
+vl53l1x = VL53L1X(i2c)
 
 while True:
-    if vl53lx1.data_ready():
-        print(vl53l1x.get_data())
+        print(vl53l1x.distance)
+        sleep(0.5)
 
 BRIGHTNESS = 0.4
 UPDATES = 50
